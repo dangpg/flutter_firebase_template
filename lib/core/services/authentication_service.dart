@@ -7,7 +7,7 @@ import 'package:rxdart/rxdart.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final BehaviorSubject<User> userController = BehaviorSubject<User>.seeded(User.initial());  
+  final BehaviorSubject<User> userController = BehaviorSubject<User>();
   String errorMessage;
 
   AuthenticationService() {
@@ -18,16 +18,14 @@ class AuthenticationService {
     if (firebaseUser == null) {
       userController.add(User.initial());
     } else {
-      // TODO: Create correct user model
-      User user =
-          User(id: firebaseUser.uid, username: firebaseUser.displayName);
+      User user = User.fromFirebaseUser(firebaseUser);
       userController.add(user);
     }
   }
 
   Future<dynamic> getUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
-    User user = User(id: firebaseUser.uid, username: firebaseUser.displayName);
+    User user = User.fromFirebaseUser(firebaseUser);
     userController.add(user);
     return firebaseUser;
   }

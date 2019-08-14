@@ -1,8 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class User {
   String id;
-  String username;
+  String email;
 
-  User({this.id, this.username});
+  User({this.id, this.email});
 
-  User.initial() : id = '-1', username = '';
+  User.initial() : id = '-1', email = '';
+
+  User.fromFirebaseUser(FirebaseUser firebaseUser) {
+    this.id = firebaseUser.uid;
+    this.email = firebaseUser.email;
+  }
 }

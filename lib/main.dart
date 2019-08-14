@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
             {
               return StreamProvider<User>.value(
                 value: locator<AuthenticationService>().userController.stream,
-                initialData: User.initial(),
+                initialData: snapshot.hasData ? User.fromFirebaseUser(snapshot.data) : User.initial(),
                 child: MaterialApp(
                   title: 'Flutter Firebase Template',
                   theme: ThemeData(),
-                  initialRoute: snapshot.hasData ? Router.root : Router.login,
+                  initialRoute: snapshot.hasData ? Router.home : Router.login,
                   navigatorKey: locator<NavigationService>().navigatorKey,
                   onGenerateRoute: Router.generateRoute,
                 ),
@@ -42,4 +42,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

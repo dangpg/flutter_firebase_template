@@ -9,19 +9,21 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
-      onModelReady: (model) {},
+      onModelReady: (model) {
+        model.getUserData(Provider.of<User>(context).id);
+      },
       builder: (context, model, child) => Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(Provider.of<User>(context).id),
+              model.userData != null ? Text('Hello ' + model.userData.username) : Container(),
               SizedBox(height: 10.0,),
               model.state == ViewState.Busy ? CircularProgressIndicator() : RaisedButton(
                 onPressed: () {
                   model.logout();
                 },
-                child: Text('Sign Out'),
+                child: Text('Logout'),
               )
             ],
           ),

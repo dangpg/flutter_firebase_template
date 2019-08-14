@@ -17,14 +17,14 @@ class LoginModel extends BaseModel {
     super.dispose();
   }
 
-  void login(String email, String password) async {
+  Future login(String email, String password) async {
     setState(ViewState.Busy);
     _errorStream.sink.add('');
     bool result = await _authService
         .login(email, password);
 
     if (result) {
-      _navigationService.pushReplacementNamed(Router.root);
+      _navigationService.pushReplacementNamed(Router.home);
     } else {
       _errorStream.sink.addError(_authService.errorMessage);
     }
