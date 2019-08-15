@@ -29,8 +29,7 @@ class DatabaseServiceImpl extends DatabaseService {
 
   @override
   Future updateItem(Item item) {
-    // TODO: implement updateItem
-    return null;
+    return _db.collection(itemCollection).document(item.id).updateData(item.toJson());
   }
 
   @override
