@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_template/core/viewmodels/viewstate.dart';
-export 'package:flutter_firebase_template/core/viewmodels/viewstate.dart';
+import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
+export 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
 
 class BaseModel extends ChangeNotifier {
   ViewState _state = ViewState.Idle;

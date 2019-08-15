@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: locator<AuthenticationService>().getUser(),
+      future: locator<AuthenticationService>().getCurrentUser(),
       builder: (context, AsyncSnapshot<dynamic> snapshot) {
         switch (snapshot.connectionState) {
           case (ConnectionState.done):

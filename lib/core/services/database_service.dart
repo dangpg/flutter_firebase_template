@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_firebase_template/core/models/item.dart';
+import 'package:flutter_firebase_template/core/models/user_data.dart';
 
-class DatabaseService {
-  Firestore _db = Firestore.instance;
-  final String userCollection = 'users';
-
-  Future<DocumentSnapshot> getUserDataById(String uid) {
-    print('uid:' + uid);
-    return _db.collection(userCollection).document(uid).get();
-  }
-}
+abstract class DatabaseService {
+  Future<UserData> readUserData(String uid);
+  Future<List<Item>> readItems();
+  Future createItem(Item item);
+  Future<Item> readItem(String itemId);
+  Future updateItem(Item item);
+  Future deleteItem(String itemId);
+} 

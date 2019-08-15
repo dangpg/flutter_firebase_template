@@ -31,6 +31,8 @@ dependencies:
   firebase_auth: ^0.14.0+1
   cloud_firestore: ^0.12.9
 
+  flutter_lorem: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

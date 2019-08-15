@@ -20,8 +20,7 @@ class LoginModel extends BaseModel {
   Future login(String email, String password) async {
     setState(ViewState.Busy);
     _errorStream.sink.add('');
-    bool result = await _authService
-        .login(email, password);
+    bool result = await _authService.loginWithEmailAndPassword(email, password);
 
     if (result) {
       _navigationService.pushReplacementNamed(Router.home);

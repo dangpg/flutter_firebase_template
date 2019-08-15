@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/ui/router.dart';
+export 'package:flutter_firebase_template/ui/router.dart';
 
 class NavigationService {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
@@ -27,5 +28,12 @@ class NavigationService {
     return null;
   }
 
+  Future<dynamic> returnToHomeView() => _navigatorKey.currentState
+      .pushNamedAndRemoveUntil(Router.home, (Route route) => false);
+
   bool pop() => _navigatorKey.currentState.pop();
+
+  void popUntilNamed(String routeName) {
+    _navigatorKey.currentState.popUntil(ModalRoute.withName(routeName));
+  }
 }
