@@ -5,12 +5,14 @@ import 'package:flutter_firebase_template/core/services/database_service.dart';
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
+import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 class DetailModel extends BaseModel {
   final DatabaseService _dbService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final StreamController<String> snackbarController = StreamController<String>();
+  final StreamController<String> snackbarController =
+      StreamController<String>();
   Item item;
 
   Future deleteItem() async {
@@ -18,7 +20,10 @@ class DetailModel extends BaseModel {
     setState(ViewState.Busy);
     await _dbService.deleteItem(item.id);
     setState(ViewState.Idle);
-    _navigationService.returnToHomeView();
+    _navigationService.returnToHomeView(
+      arguments:
+          HomeViewArgs(snackbarMessage: 'Item deleted', deletedItem: item),
+    );
   }
 
   dismissAlert() => _navigationService.pop();

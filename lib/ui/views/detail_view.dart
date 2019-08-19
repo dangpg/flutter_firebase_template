@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_template/core/models/item.dart';
 import 'package:flutter_firebase_template/core/viewmodels/detail_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
+import 'package:flutter_firebase_template/ui/views/detail_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
 
 class DetailView extends StatefulWidget {
-  final Item item;
+  final DetailViewArgs detailViewArgs;
 
-  const DetailView({@required this.item});
+  const DetailView({@required this.detailViewArgs});
 
   @override
   _DetailViewState createState() => _DetailViewState();
@@ -21,15 +21,17 @@ class _DetailViewState extends State<DetailView> {
   Widget build(BuildContext context) {
     return BaseView<DetailModel>(
       onModelReady: (model) {
-        model.item = this.widget.item;
+        model.item = this.widget.detailViewArgs.item;
 
-        model.snackbarController.stream.listen((msg) {
-          _scaffoldKey.currentState.showSnackBar(
-            SnackBar(
-              content: Text(msg),
-            ),
-          );
-        });
+        model.snackbarController.stream.listen(
+          (msg) {
+            _scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                content: Text(msg),
+              ),
+            );
+          },
+        );
       },
       builder: (context, model, child) => Stack(children: <Widget>[
         Scaffold(
@@ -71,34 +73,6 @@ class _DetailViewState extends State<DetailView> {
                       });
                 },
               ),
-              // StreamBuilder(
-              //   stream: model.snackbarController.stream,
-              //   builder:
-              //       (BuildContext context, AsyncSnapshot<String> snapshot) {
-              //     if (snapshot.hasData) {
-              //       Scaffold.of(context).showSnackBar(
-              //         SnackBar(
-              //           content: Text(snapshot.data),
-              //         ),
-              //       );
-              //     }
-              //     return Container();
-              //   },
-              // )
-              // Builder(
-              //   builder: (BuildContext context) {
-              //     model.snackbarController.stream.listen(
-              //       (msg) {
-              //         Scaffold.of(context).showSnackBar(
-              //           SnackBar(
-              //             content: Text(msg),
-              //           ),
-              //         );
-              //       },
-              //     );
-              //     return Container();
-              //   },
-              // )
             ],
           ),
           body: Padding(

@@ -11,10 +11,7 @@ class NavigationService {
     userStream.listen(returnToLoginView);
   }
 
-  Future<dynamic> navigateTo(String routeName) =>
-      _navigatorKey.currentState.pushNamed(routeName);
-
-  Future<dynamic> navigateToArgs(String routeName, dynamic arguments) =>
+  Future<dynamic> navigateTo(String routeName, {Object arguments}) =>
       _navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
 
   Future<dynamic> pushReplacementNamed(String routeName) =>
@@ -28,8 +25,8 @@ class NavigationService {
     return null;
   }
 
-  Future<dynamic> returnToHomeView() => _navigatorKey.currentState
-      .pushNamedAndRemoveUntil(Router.home, (Route route) => false);
+  Future<dynamic> returnToHomeView({Object arguments}) => _navigatorKey.currentState
+      .pushNamedAndRemoveUntil(Router.home, (Route route) => false, arguments: arguments);
 
   bool pop() => _navigatorKey.currentState.pop();
 

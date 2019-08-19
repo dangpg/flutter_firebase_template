@@ -4,21 +4,50 @@ import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/viewmodels/home_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
+import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  final HomeViewArgs homeViewArgs;
+
+  const HomeView({this.homeViewArgs});
+
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
       onModelReady: (model) {
         model.getUserData(Provider.of<User>(context).id);
         model.getItems();
+
+        if (widget.homeViewArgs.snackbarMessage != null) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => _scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                content: Text(widget.homeViewArgs.snackbarMessage),
+                action: widget.homeViewArgs.deletedItem != null ? SnackBarAction(
+                  label: 'UNDO',
+                  onPressed: () {
+                    model.undoDeleteItem(widget.homeViewArgs.deletedItem);
+                  },
+                ) : null,
+              ),
+            ),
+          );
+        }
       },
       builder: (context, model, child) => Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Scaffold(
+            key: _scaffoldKey,
             appBar: AppBar(
               title: Text('Flutter Firebase Template'),
             ),
@@ -69,7 +98,7 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            body: _buildItemList(context, model, model.items),
+            body: _buildItemList(context, model),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () async {
@@ -84,14 +113,14 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildItemList(
-      BuildContext context, HomeModel model, List<Item> items) {
+  Widget _buildItemList(BuildContext context, HomeModel model) {
     return RefreshIndicator(
       onRefresh: model.getItems,
       child: ListView(
         padding: const EdgeInsets.only(top: 5.0),
-        children:
-            items.map((item) => _buildItem(context, model, item)).toList(),
+        children: model.items
+            .map((item) => _buildItem(context, model, item))
+            .toList(),
       ),
     );
   }

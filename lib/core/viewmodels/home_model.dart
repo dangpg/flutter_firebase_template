@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_firebase_template/core/models/item.dart';
 import 'package:flutter_firebase_template/core/models/user_data.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
 import 'package:flutter_firebase_template/ui/router.dart';
+import 'package:flutter_firebase_template/ui/views/detail_view_args.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 class HomeModel extends BaseModel {
@@ -17,7 +20,10 @@ class HomeModel extends BaseModel {
   List<Item> items = List<Item>();
 
   void openDetailView(Item item) {
-    _navigationService.navigateToArgs(Router.detail, item);
+    _navigationService.navigateTo(
+      Router.detail,
+      arguments: DetailViewArgs(item: item),
+    );
   }
 
   Future createRandomItem() async {
@@ -46,5 +52,12 @@ class HomeModel extends BaseModel {
     setState(ViewState.Busy);
     await _authService.logout();
     setState(ViewState.Idle);
+  }
+
+  Future undoDeleteItem(Item deletedItem) async {
+    setState(ViewState.Busy);
+    await _dbService.createItem(deletedItem);
+    setState(ViewState.Idle);
+    getItems();
   }
 }
