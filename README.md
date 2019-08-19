@@ -1,6 +1,23 @@
 # flutter_firebase_template
 
-A new Flutter project.
+Ready to use project template for incorporating Firebase within a Flutter project.
+
+
+__Features:__
+* Authentication (FirebaseAuth)
+  * Login with Email and Password
+  * Logout
+* Registration
+* Firestore
+  * CRUD operations
+* Firebase storage
+* Intact archictecture powered by Provider
+* Navigation system
+* Unit testing
+  * Mock service implementations powered by dependency injection
+* Settings system powered by shared preferences
+  * Internalization
+  * Theming (light/dark theme)
 
 ## Getting Started
 
