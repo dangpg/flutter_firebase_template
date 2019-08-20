@@ -9,8 +9,7 @@ abstract class AuthenticationService {
     : userController = BehaviorSubject<User>();
 
   Future<dynamic> getCurrentUser();
-
   Future<bool> loginWithEmailAndPassword(String email, String password);
-
   Future<dynamic> logout();
+  Future<bool> register(String email, String password);
 }

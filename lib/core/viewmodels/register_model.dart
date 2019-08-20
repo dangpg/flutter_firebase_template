@@ -2,11 +2,12 @@ import 'package:flutter_firebase_template/core/services/authentication_service.d
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
-import 'package:flutter_firebase_template/ui/router.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LoginModel extends BaseModel {
-  final AuthenticationService _authService = locator<AuthenticationService>();
+typedef ValidatorSignature = String Function(String value);
+
+class RegisterModel extends BaseModel {
+  final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PublishSubject _errorStream = PublishSubject<String>();
   Observable<String> get errorStream => _errorStream.stream;
@@ -17,27 +18,27 @@ class LoginModel extends BaseModel {
     super.dispose();
   }
 
-  Future login(String email, String password) async {
+  Future register(String email, String password) async {
     setState(ViewState.Busy);
-    _errorStream.sink.add('');
-    bool result = await _authService.loginWithEmailAndPassword(email, password);
-
+    bool result = await _authenticationService.register(email, password);
     if (result) {
-      _navigationService.pushReplacementNamed(Router.home);
+      // TODO: login user and navigate to home view
     } else {
-      _errorStream.sink.addError(_authService.errorMessage);
+      // TODO: display error message
     }
-
     setState(ViewState.Idle);
   }
 
-  navigateToRegisterView() {
-    _navigationService.navigateTo(Router.register);
-  }
-  
   String emailValidator(String email) {
     if (!email.contains('@')) {
       return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String confirmPasswordValidator(String password, String confirmPassword) {
+    if (password != confirmPassword) {
+      return 'Please make sure your passwords match';
     }
     return null;
   }

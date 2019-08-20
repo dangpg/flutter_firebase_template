@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
-import 'package:flutter_firebase_template/core/viewmodels/login_model.dart';
+import 'package:flutter_firebase_template/core/viewmodels/register_model.dart';
+import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 
-class LoginView extends StatefulWidget {
+class RegisterView extends StatefulWidget {
   @override
-  _LoginViewState createState() => _LoginViewState();
+  _RegisterViewState createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginModel>(
+    return BaseView<RegisterModel>(
       onModelReady: (model) {},
       builder: (context, model, child) => Scaffold(
         body: Center(
@@ -31,11 +34,9 @@ class _LoginViewState extends State<LoginView> {
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextFormField(
                     controller: _emailController,
-                    autofocus: true,
                     decoration: InputDecoration(
                       hintText: 'Email',
                     ),
@@ -48,6 +49,14 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     obscureText: true,
                   ),
+                  TextFormField(
+                    controller: _confirmPasswordController,
+                    decoration: InputDecoration(
+                      hintText: 'Confirm Password',
+                    ),
+                    obscureText: true,
+                    validator: (confirmPassword) => model.confirmPasswordValidator(_passwordController.text, confirmPassword),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Container(
@@ -56,34 +65,14 @@ class _LoginViewState extends State<LoginView> {
                           : RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  model.login(_emailController.text,
+                                  model.register(_emailController.text,
                                       _passwordController.text);
                                 }
                               },
-                              child: Text('Login'),
+                              child: Text('Register'),
                             ),
                     ),
                   ),
-                  GestureDetector(
-                    child: Text(
-                      'Click to register',
-                      style: TextStyle(
-                        color: Colors.red[200],
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                    onTap: model.navigateToRegisterView,
-                  ),
-                  StreamBuilder<String>(
-                    stream: model.errorStream,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.hasError) {
-                        return Text(snapshot.error);
-                      }
-                      return Container();
-                    },
-                  )
                 ],
               ),
             ),

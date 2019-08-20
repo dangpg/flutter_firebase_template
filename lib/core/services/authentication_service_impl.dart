@@ -21,13 +21,18 @@ class AuthenticationServiceImpl extends AuthenticationService {
     }
   }
 
+  @override
   Future<dynamic> getCurrentUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
+    if (firebaseUser == null) {
+      return null;
+    }
     User user = User.fromFirebaseUser(firebaseUser);
     userController.add(user);
-    return firebaseUser;
+    return user;
   }
 
+  @override
   Future<bool> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -51,7 +56,21 @@ class AuthenticationServiceImpl extends AuthenticationService {
     }
   }
 
+  @override
   Future<dynamic> logout() async {
     await _auth.signOut();
+  }
+
+  @override
+  Future<bool> register(String email, String password) async {
+    AuthResult authResult = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+
+    if (authResult != null) {
+      return true;
+    }
+
+    errorMessage = 'There was an error while creating the account';
+    return false;
   }
 }

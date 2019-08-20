@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
         model.getUserData(Provider.of<User>(context).id);
         model.getItems();
 
-        if (widget.homeViewArgs.snackbarMessage != null) {
+        if (widget.homeViewArgs?.snackbarMessage != null) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => _scaffoldKey.currentState.showSnackBar(
               SnackBar(

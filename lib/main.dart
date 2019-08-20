@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
         switch (snapshot.connectionState) {
           case (ConnectionState.done):
             {
-              return StreamProvider<User>.value(
-                value: locator<AuthenticationService>().userController.stream,
-                initialData: snapshot.hasData ? User.fromFirebaseUser(snapshot.data) : User.initial(),
+              return StreamProvider<User>(
+                builder: (BuildContext context) => locator<AuthenticationService>().userController.stream,
+                initialData: snapshot.hasData ? snapshot.data : User.initial(),
                 child: MaterialApp(
                   title: 'Flutter Firebase Template',
                   theme: ThemeData(),
