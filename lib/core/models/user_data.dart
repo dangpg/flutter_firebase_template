@@ -14,7 +14,7 @@ class UserData {
         lastname = '',
         username = '';
 
-  UserData.fromMap(Map<String, dynamic> map, String id)
+  UserData.fromJson(Map<String, dynamic> map, String id)
       : id = id,
         firstname = (map ?? const {})['firstname'] ?? '',
         lastname = (map ?? const {})['lastname'] ?? '',

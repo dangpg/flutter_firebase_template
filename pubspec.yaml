@@ -27,9 +27,11 @@ dependencies:
   provider: ^3.0.0+1
   get_it: ^1.0.3+2
   rxdart: ^0.22.1+1
+  shared_preferences: ^0.5.3+4
 
   firebase_auth: ^0.14.0+1
   cloud_firestore: ^0.12.9
+  firebase_storage: ^3.0.5
 
   flutter_lorem: ^1.1.0
 

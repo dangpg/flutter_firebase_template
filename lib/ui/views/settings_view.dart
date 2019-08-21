@@ -10,6 +10,14 @@ class SettingsView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text('Settings'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {
+                model.saveSettings();
+              },
+            ),
+          ],
         ),
         body: ListView(
           children: <Widget>[

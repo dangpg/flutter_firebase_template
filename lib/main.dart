@@ -9,8 +9,8 @@ import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  setupLocator();
+Future<void> main() async {
+  await setupLocator();
   runApp(MyApp());
 }
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
                   StreamProvider<ThemeData>(
                     builder: (BuildContext context) =>
                         locator<ThemeService>().themeStream,
-                    initialData: AppThemes.defaultTheme,
+                    initialData: locator<ThemeService>().currentTheme,
                   ),
                 ],
                 child: Consumer<ThemeData>(

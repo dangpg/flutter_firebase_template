@@ -12,7 +12,7 @@ class DatabaseServiceImpl extends DatabaseService {
   Future<UserData> readUserData(String uid) async {
     DocumentSnapshot doc =
         await _db.collection(userCollection).document(uid).get();
-    return UserData.fromMap(doc.data, doc.documentID);
+    return UserData.fromJson(doc.data, doc.documentID);
   }
 
   @override
