@@ -1,4 +1,7 @@
+import 'package:flutter_firebase_template/core/models/user.dart';
+import 'package:flutter_firebase_template/core/models/user_data.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
+import 'package:flutter_firebase_template/core/services/database_service.dart';
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
@@ -8,6 +11,7 @@ typedef ValidatorSignature = String Function(String value);
 
 class RegisterModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
+  final DatabaseService _databaseService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PublishSubject _errorStream = PublishSubject<String>();
   Observable<String> get errorStream => _errorStream.stream;
@@ -18,11 +22,12 @@ class RegisterModel extends BaseModel {
     super.dispose();
   }
 
-  Future register(String email, String password) async {
+  Future<void> register(String email, String password) async {
     setState(ViewState.Busy);
-    bool result = await _authenticationService.register(email, password);
-    if (result) {
-      // TODO: login user and navigate to home view
+    User user = await _authenticationService.register(email, password);
+    if (user != null) {
+      await _databaseService.createUserData(UserData.fromUser(user));
+      _navigationService.navigateTo(Router.home);
     } else {
       // TODO: display error message
     }

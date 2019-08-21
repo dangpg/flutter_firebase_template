@@ -34,6 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
             child: Form(
               key: _formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   TextFormField(
                     controller: _emailController,

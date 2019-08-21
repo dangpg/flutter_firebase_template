@@ -10,7 +10,7 @@ class Item {
 
   Item({this.title, this.body});
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'title': title,
       'body': body,

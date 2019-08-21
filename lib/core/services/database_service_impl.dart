@@ -16,7 +16,7 @@ class DatabaseServiceImpl extends DatabaseService {
   }
 
   @override
-  Future createItem(Item item) async {
+  Future<void> createItem(Item item) async {
     await _db.collection(itemCollection).add(item.toJson());
   }
 
@@ -28,12 +28,12 @@ class DatabaseServiceImpl extends DatabaseService {
   }
 
   @override
-  Future updateItem(Item item) {
+  Future<void> updateItem(Item item) {
     return _db.collection(itemCollection).document(item.id).updateData(item.toJson());
   }
 
   @override
-  Future deleteItem(String itemId) {
+  Future<void> deleteItem(String itemId) {
     return _db.collection(itemCollection).document(itemId).delete();
   }
 
@@ -41,5 +41,10 @@ class DatabaseServiceImpl extends DatabaseService {
   Future<List<Item>> readItems() async {
     QuerySnapshot snapshot = await _db.collection(itemCollection).getDocuments();
     return snapshot.documents.map((doc) => Item.fromMap(doc.data, doc.documentID)).toList();
+  }
+
+  @override
+  Future<void> createUserData(UserData userData) async {
+    await _db.collection(userCollection).document(userData.id).setData(userData.toJson());
   }
 }

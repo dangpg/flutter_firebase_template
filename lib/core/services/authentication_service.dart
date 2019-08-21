@@ -11,5 +11,5 @@ abstract class AuthenticationService {
   Future<dynamic> getCurrentUser();
   Future<bool> loginWithEmailAndPassword(String email, String password);
   Future<dynamic> logout();
-  Future<bool> register(String email, String password);
+  Future<User> register(String email, String password);
 }

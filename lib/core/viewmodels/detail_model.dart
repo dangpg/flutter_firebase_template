@@ -15,7 +15,7 @@ class DetailModel extends BaseModel {
       StreamController<String>();
   Item item;
 
-  Future deleteItem() async {
+  Future<void> deleteItem() async {
     dismissAlert();
     setState(ViewState.Busy);
     await _dbService.deleteItem(item.id);

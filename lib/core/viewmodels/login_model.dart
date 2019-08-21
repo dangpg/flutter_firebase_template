@@ -17,7 +17,7 @@ class LoginModel extends BaseModel {
     super.dispose();
   }
 
-  Future login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     setState(ViewState.Busy);
     _errorStream.sink.add('');
     bool result = await _authService.loginWithEmailAndPassword(email, password);
@@ -31,7 +31,7 @@ class LoginModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  navigateToRegisterView() {
+  void navigateToRegisterView() {
     _navigationService.navigateTo(Router.register);
   }
   

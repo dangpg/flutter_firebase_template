@@ -26,7 +26,7 @@ class HomeModel extends BaseModel {
     );
   }
 
-  Future createRandomItem() async {
+  Future<void> createRandomItem() async {
     setState(ViewState.Busy);
     String randomTitle = lorem(words: 1).replaceAll('.', '');
     String randomBody = lorem();
@@ -40,7 +40,7 @@ class HomeModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future getUserData(String uid) async {
+  Future<void> getUserData(String uid) async {
     if (uid != "-1") {
       setState(ViewState.Busy);
       userData = await _dbService.readUserData(uid);
@@ -48,13 +48,13 @@ class HomeModel extends BaseModel {
     }
   }
 
-  Future logout() async {
+  Future<void> logout() async {
     setState(ViewState.Busy);
     await _authService.logout();
     setState(ViewState.Idle);
   }
 
-  Future undoDeleteItem(Item deletedItem) async {
+  Future<void> undoDeleteItem(Item deletedItem) async {
     setState(ViewState.Busy);
     await _dbService.createItem(deletedItem);
     setState(ViewState.Idle);

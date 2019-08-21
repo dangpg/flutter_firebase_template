@@ -40,18 +40,22 @@ class AuthenticationServiceImpl extends AuthenticationService {
     } on PlatformException catch (e) {
       // TODO: Customize error messages
       switch (e.code) {
-        case 'ERROR_INVALID_EMAIL':
+        case 'ERROR_INVALID_EMAIL': {
           errorMessage = e.message;
           return false;
-        case 'ERROR_USER_NOT_FOUND':
+        }
+        case 'ERROR_USER_NOT_FOUND':{
           errorMessage = e.message;
           return false;
-        case 'ERROR_WRONG_PASSWORD':
+        }
+        case 'ERROR_WRONG_PASSWORD':{
           errorMessage = e.message;
           return false;
-        default:
+        }
+        default:{
           errorMessage = e.message;
           return false;
+        }
       }
     }
   }
@@ -62,15 +66,30 @@ class AuthenticationServiceImpl extends AuthenticationService {
   }
 
   @override
-  Future<bool> register(String email, String password) async {
-    AuthResult authResult = await _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-
-    if (authResult != null) {
-      return true;
+  Future<User> register(String email, String password) async {
+    try {
+      AuthResult authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return User.fromFirebaseUser(authResult.user);
+    } on PlatformException catch (e) {
+      switch (e.code) {
+        case 'ERROR_WEAK_PASSWORD': {
+          errorMessage = e.message;
+          return null;
+        }
+        case 'ERROR_INVALID_EMAIL': {
+          errorMessage = e.message;
+          return null;
+        }
+        case 'ERROR_EMAIL_ALREADY_IN_USE': {
+          errorMessage = e.message;
+          return null;
+        }
+        default:{
+          errorMessage = e.message;
+          return null;
+        }
+      }
     }
-
-    errorMessage = 'There was an error while creating the account';
-    return false;
   }
 }
