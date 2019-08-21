@@ -19,12 +19,14 @@ class HomeModel extends BaseModel {
   UserData userData;
   List<Item> items = List<Item>();
 
-  void openDetailView(Item item) {
+  void navigateToDetailView(Item item) {
     _navigationService.navigateTo(
       Router.detail,
       arguments: DetailViewArgs(item: item),
     );
   }
+
+  void navigateToSettingsView() => _navigationService.navigateTo(Router.settings);
 
   Future<void> createRandomItem() async {
     setState(ViewState.Busy);

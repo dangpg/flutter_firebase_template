@@ -16,7 +16,7 @@ __Features:__
 * Unit testing
   * Mock service implementations powered by dependency injection
 * Settings system powered by shared preferences
-  * Internalization
+  * Internatalization
   * Theming (light/dark theme)
 
 ## Getting Started

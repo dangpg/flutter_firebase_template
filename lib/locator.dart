@@ -6,6 +6,7 @@ import 'package:flutter_firebase_template/core/viewmodels/detail_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/home_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/login_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/register_model.dart';
+import 'package:flutter_firebase_template/core/viewmodels/settings_model.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -22,4 +23,5 @@ void setupLocator() {
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => DetailModel());
   locator.registerFactory(() => RegisterModel());
+  locator.registerFactory(() => SettingsModel());
 }

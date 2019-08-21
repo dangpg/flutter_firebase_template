@@ -80,14 +80,12 @@ class _HomeViewState extends State<HomeView> {
                         ListTile(
                           leading: Icon(Icons.settings),
                           title: Text('Settings'),
-                          onTap: () {},
+                          onTap: model.navigateToSettingsView,
                         ),
                         ListTile(
                           leading: Icon(Icons.exit_to_app),
                           title: Text('Logout'),
-                          onTap: () {
-                            model.logout();
-                          },
+                          onTap: model.logout,
                         ),
                         SizedBox(
                           height: 5.0,
@@ -139,7 +137,7 @@ class _HomeViewState extends State<HomeView> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           onTap: () {
-            model.openDetailView(item);
+            model.navigateToDetailView(item);
           },
         ),
       ),
