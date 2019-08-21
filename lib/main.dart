@@ -4,6 +4,8 @@ import 'package:flutter_firebase_template/core/services/authentication_service.d
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
 import 'package:flutter_firebase_template/ui/router.dart';
+import 'package:flutter_firebase_template/ui/shared/app_themes.dart';
+import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:provider/provider.dart';
 
@@ -21,15 +23,28 @@ class MyApp extends StatelessWidget {
         switch (snapshot.connectionState) {
           case (ConnectionState.done):
             {
-              return StreamProvider<User>(
-                builder: (BuildContext context) => locator<AuthenticationService>().userController.stream,
-                initialData: snapshot.hasData ? snapshot.data : User.initial(),
-                child: MaterialApp(
-                  title: 'Flutter Firebase Template',
-                  theme: ThemeData(),
-                  initialRoute: snapshot.hasData ? Router.home : Router.login,
-                  navigatorKey: locator<NavigationService>().navigatorKey,
-                  onGenerateRoute: Router.generateRoute,
+              return MultiProvider(
+                providers: [
+                  StreamProvider<User>(
+                    builder: (BuildContext context) =>
+                        locator<AuthenticationService>().userStream,
+                    initialData:
+                        snapshot.hasData ? snapshot.data : User.initial(),
+                  ),
+                  StreamProvider<ThemeData>(
+                    builder: (BuildContext context) =>
+                        locator<ThemeService>().themeStream,
+                    initialData: AppThemes.defaultTheme,
+                  ),
+                ],
+                child: Consumer<ThemeData>(
+                  builder: (context, theme, child) => MaterialApp(
+                    title: 'Flutter Firebase Template',
+                    theme: theme,
+                    initialRoute: snapshot.hasData ? Router.home : Router.login,
+                    navigatorKey: locator<NavigationService>().navigatorKey,
+                    onGenerateRoute: Router.generateRoute,
+                  ),
                 ),
               );
             }

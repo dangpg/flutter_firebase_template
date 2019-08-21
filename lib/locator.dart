@@ -8,6 +8,7 @@ import 'package:flutter_firebase_template/core/viewmodels/login_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/register_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/settings_model.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
+import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt locator = GetIt();
@@ -16,8 +17,9 @@ void setupLocator() {
   locator.registerLazySingleton<AuthenticationService>(
       () => (AuthenticationServiceImpl()));
   locator.registerLazySingleton(() => NavigationService(
-      locator<AuthenticationService>().userController.stream));
+      locator<AuthenticationService>().userStream));
   locator.registerLazySingleton<DatabaseService>(() => DatabaseServiceImpl());
+  locator.registerLazySingleton(() => ThemeService());
 
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => LoginModel());

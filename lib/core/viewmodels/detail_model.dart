@@ -11,8 +11,10 @@ import 'package:flutter_lorem/flutter_lorem.dart';
 class DetailModel extends BaseModel {
   final DatabaseService _dbService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final StreamController<String> snackbarController =
+  final StreamController<String> _snackbarController =
       StreamController<String>();
+  Stream<String> get snackbarStream => _snackbarController.stream;
+  
   Item item;
 
   Future<void> deleteItem() async {
@@ -41,11 +43,11 @@ class DetailModel extends BaseModel {
     setState(ViewState.Busy);
     await _dbService.updateItem(item);
     setState(ViewState.Idle);
-    snackbarController.add('Item updated');
+    _snackbarController.add('Item updated');
   }
 
   void dispose() {
-    snackbarController.close();
+    _snackbarController.close();
     super.dispose();
   }
 }

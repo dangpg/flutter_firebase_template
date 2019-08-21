@@ -72,6 +72,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
           email: email, password: password);
       return User.fromFirebaseUser(authResult.user);
     } on PlatformException catch (e) {
+      // TODO: Customize error messages
       switch (e.code) {
         case 'ERROR_WEAK_PASSWORD': {
           errorMessage = e.message;

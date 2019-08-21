@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/models/user_data.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
@@ -13,8 +15,8 @@ class RegisterModel extends BaseModel {
   final AuthenticationService _authenticationService = locator<AuthenticationService>();
   final DatabaseService _databaseService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final PublishSubject _errorStream = PublishSubject<String>();
-  Observable<String> get errorStream => _errorStream.stream;
+  final StreamController _errorStream = StreamController<String>();
+  Stream<String> get errorStream => _errorStream.stream;
 
   @override
   void dispose() {
@@ -29,7 +31,7 @@ class RegisterModel extends BaseModel {
       await _databaseService.createUserData(UserData.fromUser(user));
       _navigationService.navigateTo(Router.home);
     } else {
-      // TODO: display error message
+      _errorStream.addError(_authenticationService.errorMessage);
     }
     setState(ViewState.Idle);
   }

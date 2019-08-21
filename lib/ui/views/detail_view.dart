@@ -23,7 +23,7 @@ class _DetailViewState extends State<DetailView> {
       onModelReady: (model) {
         model.item = this.widget.detailViewArgs.item;
 
-        model.snackbarController.stream.listen(
+        model.snackbarStream.listen(
           (msg) {
             _scaffoldKey.currentState.showSnackBar(
               SnackBar(
