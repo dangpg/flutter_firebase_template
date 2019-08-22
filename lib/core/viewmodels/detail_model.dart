@@ -9,12 +9,13 @@ import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 class DetailModel extends BaseModel {
+  // TODO: deal with dirty, not saved changes
   final DatabaseService _dbService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final StreamController<String> _snackbarController =
       StreamController<String>();
   Stream<String> get snackbarStream => _snackbarController.stream;
-  
+
   Item item;
 
   Future<void> deleteItem() async {
@@ -28,7 +29,7 @@ class DetailModel extends BaseModel {
     );
   }
 
-  dismissAlert() => _navigationService.pop();
+  bool dismissAlert() => _navigationService.pop();
 
   void randomizeItem() {
     setState(ViewState.Busy);

@@ -3,6 +3,7 @@ import 'package:flutter_firebase_template/core/services/authentication_service_i
 import 'package:flutter_firebase_template/core/services/database_service.dart';
 import 'package:flutter_firebase_template/core/services/database_service_impl.dart';
 import 'package:flutter_firebase_template/core/services/local_storage_service.dart';
+import 'package:flutter_firebase_template/core/services/settings_service.dart';
 import 'package:flutter_firebase_template/core/viewmodels/detail_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/home_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/login_model.dart';
@@ -23,8 +24,10 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => LocalStorageService());
 
   // Async because we have to wait for shared preferences to load settings
-  ThemeService _themeService = await ThemeService.init();
-  locator.registerLazySingleton(() => _themeService);
+  SettingsService _settingsService = await SettingsService.init();
+  locator.registerLazySingleton(() => _settingsService);
+
+  locator.registerLazySingleton(() => ThemeService());
 
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => LoginModel());

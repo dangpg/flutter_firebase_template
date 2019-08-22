@@ -7,7 +7,6 @@ import 'package:flutter_firebase_template/core/services/database_service.dart';
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
-import 'package:rxdart/rxdart.dart';
 
 typedef ValidatorSignature = String Function(String value);
 

@@ -4,7 +4,6 @@ import 'package:flutter_firebase_template/core/services/authentication_service.d
 import 'package:flutter_firebase_template/locator.dart';
 import 'package:flutter_firebase_template/ui/navigation_service.dart';
 import 'package:flutter_firebase_template/ui/router.dart';
-import 'package:flutter_firebase_template/ui/shared/app_themes.dart';
 import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:provider/provider.dart';
