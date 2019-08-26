@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_firebase_template/core/services/settings_service.dart';
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/locator.dart';
@@ -12,15 +13,20 @@ class SettingsModel extends BaseModel {
   final SettingsService _settingsService = locator<SettingsService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  bool get useDarkTheme => _settingsService.settings.theme == AppThemeKeys.dark;
+  bool get useDarkTheme =>
+      _settingsService.getSettingFromKey(SettingsService.keyTheme).value ==
+      describeEnum(AppThemeKeys.dark);
 
   void switchToDarkTheme(bool useDarkTheme) {
     setState(ViewState.Busy);
     _themeService.updateTheme(useDarkTheme
         ? AppThemes.getThemeFromKey(AppThemeKeys.dark)
         : AppThemes.getThemeFromKey(AppThemeKeys.light));
-    _settingsService.changeThemeSetting(
-        useDarkTheme ? AppThemeKeys.dark : AppThemeKeys.light);
+    _settingsService.changeSettingValue(
+        SettingsService.keyTheme,
+        useDarkTheme
+            ? describeEnum(AppThemeKeys.dark)
+            : describeEnum(AppThemeKeys.light));
     setState(ViewState.Idle);
   }
 
