@@ -8,25 +8,31 @@ import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 
 class SettingsModel extends BaseModel {
-  // TODO: deal with dirty, not saved changes
   final ThemeService _themeService = locator<ThemeService>();
   final SettingsService _settingsService = locator<SettingsService>();
   final NavigationService _navigationService = locator<NavigationService>();
+
+  bool get pendingChanges => _settingsService.pendingChanges;
+
+  bool dismissAlert(bool result) => _navigationService.pop(result);
 
   bool get useDarkTheme =>
       _settingsService.getSettingFromKey(SettingsService.keyTheme).value ==
       describeEnum(AppThemeKeys.dark);
 
+  void revertChanges() {
+    _settingsService.revertChanges();
+    _themeService.updateTheme();
+  }
+
   void switchToDarkTheme(bool useDarkTheme) {
     setState(ViewState.Busy);
-    _themeService.updateTheme(useDarkTheme
-        ? AppThemes.getThemeFromKey(AppThemeKeys.dark)
-        : AppThemes.getThemeFromKey(AppThemeKeys.light));
     _settingsService.changeSettingValue(
         SettingsService.keyTheme,
         useDarkTheme
             ? describeEnum(AppThemeKeys.dark)
             : describeEnum(AppThemeKeys.light));
+    _themeService.updateTheme();
     setState(ViewState.Idle);
   }
 

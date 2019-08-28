@@ -28,7 +28,7 @@ class NavigationService {
   Future<dynamic> returnToHomeView({Object arguments}) => _navigatorKey.currentState
       .pushNamedAndRemoveUntil(Router.home, (Route route) => false, arguments: arguments);
 
-  bool pop() => _navigatorKey.currentState.pop();
+  bool pop([bool result]) => _navigatorKey.currentState.pop(result);
 
   void popUntilNamed(String routeName) {
     _navigatorKey.currentState.popUntil(ModalRoute.withName(routeName));

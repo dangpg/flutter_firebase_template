@@ -20,8 +20,9 @@ class ThemeService {
         _settingsService.getSettingFromKey(SettingsService.keyTheme).value);
   }
 
-  void updateTheme(ThemeData themeData) {
-    _currentTheme = themeData;
+  void updateTheme() {
+    _currentTheme = AppThemes.getThemeFromString(
+        _settingsService.getSettingFromKey(SettingsService.keyTheme).value);
     _themeController.add(_currentTheme);
   }
 }
