@@ -10,6 +10,11 @@ class Item {
 
   Item({this.title, this.body});
 
+  Item.clone(Item item)
+      : id = item.id,
+        title = item.title,
+        body = item.body;
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,

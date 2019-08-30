@@ -14,7 +14,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
 
   void _userChanged(FirebaseUser firebaseUser) {
     if (firebaseUser == null) {
-      userController.add(User.initial());
+      userController.add(null);
     } else {
       User user = User.fromFirebaseUser(firebaseUser);
       userController.add(user);
@@ -22,7 +22,7 @@ class AuthenticationServiceImpl extends AuthenticationService {
   }
 
   @override
-  Future<dynamic> getCurrentUser() async {
+  Future<User> getCurrentUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
     if (firebaseUser == null) {
       return null;
@@ -38,7 +38,6 @@ class AuthenticationServiceImpl extends AuthenticationService {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return true;
     } on PlatformException catch (e) {
-      // TODO: Customize error messages
       switch (e.code) {
         case 'ERROR_INVALID_EMAIL': {
           errorMessage = e.message;
@@ -72,7 +71,6 @@ class AuthenticationServiceImpl extends AuthenticationService {
           email: email, password: password);
       return User.fromFirebaseUser(authResult.user);
     } on PlatformException catch (e) {
-      // TODO: Customize error messages
       switch (e.code) {
         case 'ERROR_WEAK_PASSWORD': {
           errorMessage = e.message;

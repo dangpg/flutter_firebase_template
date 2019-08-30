@@ -18,7 +18,7 @@ class NavigationService {
       _navigatorKey.currentState.pushReplacementNamed(routeName);
 
   Future<dynamic> returnToLoginView(User user) {
-    if (user.id == '-1') {
+    if (user == null) {
       return _navigatorKey.currentState
           .pushNamedAndRemoveUntil(Router.login, (Route route) => false);
     }

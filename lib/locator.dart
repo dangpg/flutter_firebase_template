@@ -15,7 +15,7 @@ import 'package:get_it/get_it.dart';
 
 GetIt locator = GetIt();
 
-Future<void> setupLocator() async {
+setupLocator() {
   locator.registerLazySingleton<AuthenticationService>(
       () => (AuthenticationServiceImpl()));
   locator.registerLazySingleton(() => NavigationService(
@@ -23,10 +23,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<DatabaseService>(() => DatabaseServiceImpl());
   locator.registerLazySingleton(() => LocalStorageService());
 
-  // Async because we have to wait for shared preferences to load settings
-  SettingsService _settingsService = await SettingsService.init();
-  locator.registerLazySingleton(() => _settingsService);
-
+  locator.registerLazySingleton(() => SettingsService());
   locator.registerLazySingleton(() => ThemeService());
 
   locator.registerFactory(() => HomeModel());
