@@ -33,61 +33,94 @@ class _DetailViewState extends State<DetailView> {
           },
         );
       },
-      builder: (context, model, child) => Stack(children: <Widget>[
-        Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(model.item.title),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.save),
-                onPressed: () {
-                  model.updateItem();
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: () async {
+          if (!model.pendingChanges) return Future.value(true);
+
+          return await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: Text('Unsaved settings will be lost'),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: const Text('CANCEL'),
+                        onPressed: () {
+                          model.dismissAlert(false);
+                        },
+                      ),
+                      FlatButton(
+                        child: Text(
+                          'DISCARD',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        onPressed: () {
+                          model.revertChanges();
+                          model.dismissAlert(true);
+                        },
+                      )
+                    ],
+                  );
                 },
-              ),
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          content: Text('Delete Item?'),
-                          actions: <Widget>[
-                            FlatButton(
-                                child: const Text('CANCEL'),
+              ) ??
+              false;
+        },
+        child: Stack(children: <Widget>[
+          Scaffold(
+            key: _scaffoldKey,
+            appBar: AppBar(
+              title: Text(model.item.title),
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.save),
+                  onPressed: () {
+                    model.updateItem();
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Text('Delete Item?'),
+                            actions: <Widget>[
+                              FlatButton(
+                                  child: const Text('CANCEL'),
+                                  onPressed: () {
+                                    model.dismissAlert();
+                                  }),
+                              FlatButton(
+                                child: Text(
+                                  'DELETE',
+                                  style: TextStyle(color: Colors.red),
+                                ),
                                 onPressed: () {
-                                  model.dismissAlert();
-                                }),
-                            FlatButton(
-                              child: Text(
-                                'DELETE',
-                                style: TextStyle(color: Colors.red),
-                              ),
-                              onPressed: () {
-                                model.deleteItem();
-                              },
-                            )
-                          ],
-                        );
-                      });
-                },
-              ),
-            ],
+                                  model.deleteItem();
+                                },
+                              )
+                            ],
+                          );
+                        });
+                  },
+                ),
+              ],
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(model.item.body),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                model.randomizeItem();
+              },
+              child: Icon(Icons.casino),
+            ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(model.item.body),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              model.randomizeItem();
-            },
-            child: Icon(Icons.casino),
-          ),
-        ),
-        model.state == ViewState.Busy ? LoadingOverlay() : Container(),
-      ]),
+          model.state == ViewState.Busy ? LoadingOverlay() : Container(),
+        ]),
+      ),
     );
   }
 }

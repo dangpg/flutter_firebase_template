@@ -10,6 +10,12 @@ class Item {
 
   Item({this.title, this.body});
 
+  void copy(Item item) {
+    id = item.id;
+    title = item.title;
+    body = item.body;
+  }
+
   Item.clone(Item item)
       : id = item.id,
         title = item.title,

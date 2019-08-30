@@ -9,7 +9,6 @@ import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 class DetailModel extends BaseModel {
-  // TODO: deal with dirty, not saved changes
   final DatabaseService _dbService = locator<DatabaseService>();
   final NavigationService _navigationService = locator<NavigationService>();
   final StreamController<String> _snackbarController =
@@ -17,6 +16,19 @@ class DetailModel extends BaseModel {
   Stream<String> get snackbarStream => _snackbarController.stream;
 
   Item item;
+  Item copyItem;
+
+  bool pendingChanges = false;
+
+  
+  bool dismissAlert([bool result]) => _navigationService.pop(result);
+
+  void revertChanges() {
+    setState(ViewState.Busy);
+    item.copy(copyItem);
+    setState(ViewState.Idle);
+    _navigationService.pop();
+  }
 
   Future<void> deleteItem() async {
     dismissAlert();
@@ -29,10 +41,13 @@ class DetailModel extends BaseModel {
     );
   }
 
-  bool dismissAlert() => _navigationService.pop();
-
   void randomizeItem() {
     setState(ViewState.Busy);
+    if (!pendingChanges) {
+      copyItem = Item.clone(item);
+      pendingChanges = true;
+    }
+
     String randomTitle = lorem(words: 1).replaceAll('.', '');
     String randomBody = lorem();
     item.title = randomTitle;
