@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_template/core/models/setup_data.dart';
 import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
 import 'package:flutter_firebase_template/core/services/setting_keys.dart';
@@ -20,57 +21,45 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<User>(
-      future: locator<AuthenticationService>().getCurrentUser(),
-      builder: (context, AsyncSnapshot<User> userSnapshot) {
-        switch (userSnapshot.connectionState) {
-          case ConnectionState.done:
-            return afterUserLoaded(userSnapshot.data);
-          default:
-            return LoadingView();
-        }
-      },
-    );
-  }
-
-  Widget afterUserLoaded(User user) {
-    return FutureBuilder<Settings>(
-      future: locator<SettingsService>().getSettingsFromLocalStorage(),
-      builder: (context, AsyncSnapshot<Settings> settingsSnapshot) {
-        switch (settingsSnapshot.connectionState) {
-          case (ConnectionState.done):
-            return afterSettingsLoaded(user, settingsSnapshot.data);
-          default:
-            return LoadingView();
-        }
-      },
-    );
-  }
-
-  Widget afterSettingsLoaded(User user, Settings settings) {
-    return MultiProvider(
-      providers: [
-        StreamProvider<User>(
-          builder: (_) => locator<AuthenticationService>().userStream,
-          initialData: user,
-        ),
-        ChangeNotifierProvider<Settings>(
-          builder: (_) => settings,
-        ),
-      ],
-      child: ProxyProvider<Settings, ThemeData>(
-        builder: (context, settings, _) => locator<ThemeService>()
-            .getThemeData(settings.getSettingValue(SettingKeys.theme)),
-        child: Consumer<ThemeData>(
-          builder: (context, theme, _) => MaterialApp(
-            title: 'Flutter Firebase Template',
-            theme: theme,
-            initialRoute: user != null ? Router.home : Router.login,
-            navigatorKey: locator<NavigationService>().navigatorKey,
-            onGenerateRoute: Router.generateRoute,
-          ),
-        ),
+    return FutureBuilder<SetupData>(
+      future: Future.wait([
+        locator<AuthenticationService>().getCurrentUser(),
+        locator<SettingsService>().getSettingsFromLocalStorage()
+      ]).then(
+        (response) => SetupData(user: response[0], settings: response[1]),
       ),
+      builder: (context, AsyncSnapshot<SetupData> snapshot) {
+        switch (snapshot.connectionState) {
+          case (ConnectionState.done):
+            return MultiProvider(
+              providers: [
+                StreamProvider<User>(
+                  builder: (_) => locator<AuthenticationService>().userStream,
+                  initialData: snapshot.data.user,
+                ),
+                ChangeNotifierProvider<Settings>(
+                  builder: (_) => snapshot.data.settings,
+                ),
+              ],
+              child: ProxyProvider<Settings, ThemeData>(
+                builder: (context, settings, _) => locator<ThemeService>()
+                    .getThemeData(settings.getSettingValue(SettingKeys.theme)),
+                child: Consumer<ThemeData>(
+                  builder: (context, theme, _) => MaterialApp(
+                    title: 'Flutter Firebase Template',
+                    theme: theme,
+                    initialRoute:
+                        snapshot.data.user != null ? Router.home : Router.login,
+                    navigatorKey: locator<NavigationService>().navigatorKey,
+                    onGenerateRoute: Router.generateRoute,
+                  ),
+                ),
+              ),
+            );
+          default:
+            return LoadingView();
+        }
+      },
     );
   }
 }
