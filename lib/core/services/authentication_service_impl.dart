@@ -9,27 +9,15 @@ class AuthenticationServiceImpl extends AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   AuthenticationServiceImpl() {
-    _auth.onAuthStateChanged.listen(_userChanged);
+    _auth.onAuthStateChanged.map(_userMapper).pipe(userController.sink);
   }
 
-  void _userChanged(FirebaseUser firebaseUser) {
-    if (firebaseUser == null) {
-      userController.add(null);
-    } else {
-      User user = User.fromFirebaseUser(firebaseUser);
-      userController.add(user);
-    }
-  }
+  User _userMapper (FirebaseUser firebaseUser) => firebaseUser == null ? null : User.fromFirebaseUser(firebaseUser);
 
   @override
   Future<User> getCurrentUser() async {
     FirebaseUser firebaseUser = await _auth.currentUser();
-    if (firebaseUser == null) {
-      return null;
-    }
-    User user = User.fromFirebaseUser(firebaseUser);
-    userController.add(user);
-    return user;
+    return firebaseUser == null ? null : User.fromFirebaseUser(firebaseUser);
   }
 
   @override

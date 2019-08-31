@@ -5,13 +5,9 @@ import 'package:flutter_firebase_template/core/models/user.dart';
 
 abstract class AuthenticationService {
   @protected
-  final StreamController<User> userController;
-  
+  final StreamController<User> userController = StreamController<User>.broadcast();
   Stream<User> get userStream => userController.stream;
   String errorMessage;
-
-  AuthenticationService() 
-    : userController = StreamController<User>.broadcast();
 
   Future<User> getCurrentUser();
   Future<bool> loginWithEmailAndPassword(String email, String password);
