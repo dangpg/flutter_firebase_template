@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_template/core/models/settings.dart';
 import 'package:flutter_firebase_template/core/models/setup_data.dart';
 import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
@@ -10,8 +11,6 @@ import 'package:flutter_firebase_template/ui/router.dart';
 import 'package:flutter_firebase_template/ui/theme_service.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:provider/provider.dart';
-
-import 'core/models/settings.dart';
 
 void main() {
   setupLocator();
