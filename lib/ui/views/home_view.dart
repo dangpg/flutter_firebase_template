@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/item.dart';
 import 'package:flutter_firebase_template/core/models/user.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_firebase_template/ui/views/base_view.dart';
 import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomeView extends StatefulWidget {
   final HomeViewArgs homeViewArgs;
@@ -24,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
       onModelReady: (model) {
-        model.getUserData(Provider.of<User>(context).id);
+        model.getUserData();
         model.getItems();
 
         if (widget.homeViewArgs?.snackbarMessage != null) {
@@ -32,12 +34,14 @@ class _HomeViewState extends State<HomeView> {
             (_) => _scaffoldKey.currentState.showSnackBar(
               SnackBar(
                 content: Text(widget.homeViewArgs.snackbarMessage),
-                action: widget.homeViewArgs.deletedItem != null ? SnackBarAction(
-                  label: 'UNDO',
-                  onPressed: () {
-                    model.undoDeleteItem(widget.homeViewArgs.deletedItem);
-                  },
-                ) : null,
+                action: widget.homeViewArgs.deletedItem != null
+                    ? SnackBarAction(
+                        label: 'UNDO',
+                        onPressed: () {
+                          model.undoDeleteItem(widget.homeViewArgs.deletedItem);
+                        },
+                      )
+                    : null,
               ),
             ),
           );
@@ -64,8 +68,37 @@ class _HomeViewState extends State<HomeView> {
                           accountEmail: model.userData != null
                               ? Text(model.userData.email)
                               : Text(''),
+                          currentAccountPicture: GestureDetector(
+                            onTap: () {
+                              model.navigateToProfileView();
+                            },
+                            child: model.userData != null
+                                ? CircleAvatar(
+                                    backgroundColor: Colors.lightBlueAccent,
+                                    backgroundImage: model
+                                            .userData.avatarUrl.isEmpty
+                                        ? Image.memory(kTransparentImage).image
+                                        : Image(
+                                            image: CachedNetworkImageProvider(
+                                                model.userData.avatarUrl),
+                                          ).image,
+                                    child: model.userData.avatarUrl.isEmpty
+                                        ? Text(
+                                            model.userData.email
+                                                .substring(0, 1)
+                                                .toUpperCase(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 25.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ) : Container(),
+                                  )
+                                : Container(),
+                          ),
                         ),
                         ListTile(
+                          leading: Icon(Icons.fitness_center),
                           title: Text('Item 1'),
                           onTap: () {},
                         ),

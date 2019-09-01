@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/item.dart';
+import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/models/user_data.dart';
 import 'package:flutter_firebase_template/core/services/authentication_service.dart';
 import 'package:flutter_firebase_template/core/services/database_service.dart';
@@ -26,7 +28,10 @@ class HomeModel extends BaseModel {
     );
   }
 
-  void navigateToSettingsView() => _navigationService.navigateTo(Router.settings);
+  void navigateToSettingsView() =>
+      _navigationService.navigateTo(Router.settings);
+
+  void navigateToProfileView() => _navigationService.navigateTo(Router.profile);
 
   Future<void> createRandomItem() async {
     setState(ViewState.Busy);
@@ -42,12 +47,11 @@ class HomeModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future<void> getUserData(String uid) async {
-    if (uid != "-1") {
-      setState(ViewState.Busy);
-      userData = await _dbService.readUserData(uid);
-      setState(ViewState.Idle);
-    }
+  Future<void> getUserData() async {
+    setState(ViewState.Busy);
+    User user = await _authService.getCurrentUser();
+    userData = await _dbService.readUserData(user.id);
+    setState(ViewState.Idle);
   }
 
   Future<void> logout() async {

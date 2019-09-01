@@ -27,6 +27,9 @@ dependencies:
   provider: ^3.0.0+1
   get_it: ^1.0.3+2
   shared_preferences: ^0.5.3+4
+  cached_network_image: ^1.1.1
+  transparent_image: ^1.0.0
+  image_picker: ^0.6.1+4
 
   firebase_auth: ^0.14.0+1
   cloud_firestore: ^0.12.9

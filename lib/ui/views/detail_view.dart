@@ -41,7 +41,7 @@ class _DetailViewState extends State<DetailView> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    content: Text('Unsaved settings will be lost'),
+                    content: Text('Unsaved changes will be lost'),
                     actions: <Widget>[
                       FlatButton(
                         child: const Text('CANCEL'),

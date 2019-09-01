@@ -5,6 +5,7 @@ import 'package:flutter_firebase_template/ui/views/home_view.dart';
 import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:flutter_firebase_template/ui/views/login_view.dart';
+import 'package:flutter_firebase_template/ui/views/profile_view.dart';
 import 'package:flutter_firebase_template/ui/views/register_view.dart';
 import 'package:flutter_firebase_template/ui/views/settings_view.dart';
 
@@ -15,6 +16,7 @@ class Router {
   static const detail = '/detail';
   static const register = '/register';
   static const settings = '/settings';
+  static const profile = '/profile';
 
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
@@ -40,6 +42,9 @@ class Router {
       case settings:
         return MaterialPageRoute(
             builder: (_) => SettingsView(), settings: RouteSettings(name: settings));
+      case profile:
+        return MaterialPageRoute(
+            builder: (_) => ProfileView(), settings: RouteSettings(name: profile));
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

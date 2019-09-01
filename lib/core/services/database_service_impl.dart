@@ -9,10 +9,26 @@ class DatabaseServiceImpl extends DatabaseService {
   final String itemCollection = 'items';
 
   @override
+  Future<void> createUserData(UserData userData) async {
+    await _db
+        .collection(userCollection)
+        .document(userData.id)
+        .setData(userData.toJson());
+  }
+
+  @override
   Future<UserData> readUserData(String uid) async {
     DocumentSnapshot doc =
         await _db.collection(userCollection).document(uid).get();
     return UserData.fromJson(doc.data, doc.documentID);
+  }
+
+  @override
+  Future<void> updateUserData(UserData userData) async {
+    return _db
+        .collection(userCollection)
+        .document(userData.id)
+        .updateData(userData.toJson());
   }
 
   @override
@@ -29,7 +45,10 @@ class DatabaseServiceImpl extends DatabaseService {
 
   @override
   Future<void> updateItem(Item item) {
-    return _db.collection(itemCollection).document(item.id).updateData(item.toJson());
+    return _db
+        .collection(itemCollection)
+        .document(item.id)
+        .updateData(item.toJson());
   }
 
   @override
@@ -39,12 +58,10 @@ class DatabaseServiceImpl extends DatabaseService {
 
   @override
   Future<List<Item>> readItems() async {
-    QuerySnapshot snapshot = await _db.collection(itemCollection).getDocuments();
-    return snapshot.documents.map((doc) => Item.fromMap(doc.data, doc.documentID)).toList();
-  }
-
-  @override
-  Future<void> createUserData(UserData userData) async {
-    await _db.collection(userCollection).document(userData.id).setData(userData.toJson());
+    QuerySnapshot snapshot =
+        await _db.collection(itemCollection).getDocuments();
+    return snapshot.documents
+        .map((doc) => Item.fromMap(doc.data, doc.documentID))
+        .toList();
   }
 }
