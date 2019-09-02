@@ -58,6 +58,7 @@ class DetailModel extends BaseModel {
   void updateItem() async {
     setState(ViewState.Busy);
     await _dbService.updateItem(item);
+    pendingChanges = false;
     setState(ViewState.Idle);
     _snackbarController.add('Item updated');
   }
