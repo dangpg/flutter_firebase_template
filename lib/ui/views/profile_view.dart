@@ -13,28 +13,32 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  TextEditingController _usernameController;
+  TextEditingController _firstnameController;
+  TextEditingController _lastnameController;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // We cannot use TextEditingController here because of the async call to retrieve userdata
-
-  final FocusNode _focusNodeUsername = FocusNode();
-  final FocusNode _focusNodeFirstname = FocusNode();
-  final FocusNode _focusNodeLastname = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfileModel>(
-      onModelReady: (model) {
-        model.getUserData();
-
-        // TODO: better solution?
-        _focusNodeUsername.addListener(model.onTextFieldFocus);
-        _focusNodeFirstname.addListener(model.onTextFieldFocus);
-        _focusNodeLastname.addListener(model.onTextFieldFocus);
+      onModelReady: (model) async {
+        await model.getUserData();
+        _usernameController =
+            TextEditingController(text: model.userData.username);
+        _firstnameController =
+            TextEditingController(text: model.userData.firstname);
+        _lastnameController =
+            TextEditingController(text: model.userData.lastname);
       },
       builder: (context, model, child) => model.userData == null
           ? LoadingView()
           : WillPopScope(
               onWillPop: () async {
+                model.updateDirtyUserData(_usernameController.text,
+                    _firstnameController.text, _lastnameController.text);
+
                 if (!model.pendingChanges) return Future.value(true);
 
                 return await showDialog<bool>(
@@ -72,11 +76,13 @@ class _ProfileViewState extends State<ProfileView> {
                       actions: <Widget>[
                         IconButton(
                           icon: Icon(Icons.save),
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                              model.saveProfile();
-                              // model.saveProfile();
+                              model.updateDirtyUserData(
+                                  _usernameController.text,
+                                  _firstnameController.text,
+                                  _lastnameController.text);
+                              await model.saveProfile();
                             }
                           },
                         ),
@@ -156,34 +162,25 @@ class _ProfileViewState extends State<ProfileView> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       TextFormField(
-                                        initialValue: model.userData.username,
+                                        controller: _usernameController,
                                         decoration: InputDecoration(
                                           labelText: 'Username (optional)',
                                           hintText: 'Username',
                                         ),
-                                        focusNode: _focusNodeUsername,
-                                        onSaved: (value) =>
-                                            model.userData.username = value,
                                       ),
                                       TextFormField(
-                                        initialValue: model.userData.firstname,
+                                        controller: _firstnameController,
                                         decoration: InputDecoration(
                                           labelText: 'First name (optional)',
                                           hintText: 'First name',
                                         ),
-                                        focusNode: _focusNodeFirstname,
-                                        onSaved: (value) =>
-                                            model.userData.firstname = value,
                                       ),
                                       TextFormField(
-                                        initialValue: model.userData.lastname,
+                                        controller: _lastnameController,
                                         decoration: InputDecoration(
                                           labelText: 'Last name (optional)',
                                           hintText: 'Last name',
                                         ),
-                                        focusNode: _focusNodeLastname,
-                                        onSaved: (value) =>
-                                            model.userData.lastname = value,
                                       ),
                                     ],
                                   ),

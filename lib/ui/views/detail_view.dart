@@ -72,12 +72,6 @@ class _DetailViewState extends State<DetailView> {
               title: Text(model.item.title),
               actions: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.save),
-                  onPressed: () {
-                    model.updateItem();
-                  },
-                ),
-                IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
                     showDialog(
@@ -104,6 +98,12 @@ class _DetailViewState extends State<DetailView> {
                           );
                         });
                   },
+                ),
+                IconButton(
+                  icon: Icon(Icons.save),
+                  onPressed: model.pendingChanges ? () {
+                    model.updateItem();
+                  } : null,
                 ),
               ],
             ),

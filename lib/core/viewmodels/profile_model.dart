@@ -21,12 +21,9 @@ class ProfileModel extends BaseModel {
   UserData userData; // dirty object
   File imageFile;
 
-  bool _pendingChanges = false;
-  bool get pendingChanges => _pendingChanges || _userData != userData;
+  bool get pendingChanges => imageFile != null || _userData != userData;
   
   bool dismissAlert([bool result]) => _navigationService.pop(result);
-
-  void onTextFieldFocus() => _pendingChanges = true;
 
   Future<void> getUserData() async {
     setState(ViewState.Busy);
@@ -34,6 +31,13 @@ class ProfileModel extends BaseModel {
     _userData = await _dbService.readUserData(user.id);
     userData = UserData.clone(_userData);
     setState(ViewState.Idle);
+  }
+
+  void updateDirtyUserData(String username, String firstname, String lastname) {
+    userData
+      ..username = username
+      ..firstname = firstname
+      ..lastname = lastname;
   }
 
   Future<void> saveProfile() async {
