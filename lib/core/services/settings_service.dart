@@ -39,6 +39,7 @@ class SettingsService{
     // Initialize default setting values
     _settings = Settings();
     _settings.addSetting(SettingKeys.theme, String, AppThemeKeys.light);
+    _settings.addSetting(SettingKeys.locale, String, 'en');
     _pendingChanges = false;
 
     await Future.forEach(_settings.getSettingKeys(), (String key) async {

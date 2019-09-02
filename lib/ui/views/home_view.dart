@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/item.dart';
 import 'package:flutter_firebase_template/core/viewmodels/home_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
+import 'package:flutter_firebase_template/ui/app_localizations.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
@@ -51,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
           Scaffold(
             key: _scaffoldKey,
             appBar: AppBar(
-              title: Text('Flutter Firebase Template'),
+              title: Text(AppLocalizations.of(context).title),
             ),
             drawer: Drawer(
               child: Column(

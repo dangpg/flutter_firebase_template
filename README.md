@@ -19,6 +19,14 @@ __Features:__
   * Internatalization
   * Theming (light/dark theme)
 
+## i18n
+
+Generate i18n.arb template file (based on Intl.messages in app_localizations.dart)
+`flutter pub run intl_translation:extract_to_arb --output-dir=lib/i18n lib/ui/app_localizations.dart`
+
+Generate messages.dart files (based on intl_*.arb files)
+`flutter pub run intl_translation:generate_from_arb --output-dir=lib/i18n --no-use-deferred-loading lib/ui/app_localizations.dart lib/i18n/intl_*.arb`
+
 ## Getting Started
 
 1. Create new Firebase project ([Firebase Console](https://console.firebase.google.com/))

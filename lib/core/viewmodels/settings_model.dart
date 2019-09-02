@@ -18,6 +18,39 @@ class SettingsModel extends BaseModel {
       _settingsService.getSettingFromKey(SettingKeys.theme).value ==
       AppThemeKeys.dark;
 
+  List<String> get supportedLanguage => ['English', 'Deutsch'];
+  String get selectedLanguage => _convertCountryCode(
+      _settingsService.getSettingFromKey(SettingKeys.locale).value);
+
+  String _convertCountryCode(String countryCode) {
+    switch (countryCode) {
+      case 'en':
+        return 'English';
+      case 'de':
+        return 'Deutsch';
+      default:
+        return 'English';
+    }
+  }
+
+  String _convertLanguage(String language) {
+    switch (language) {
+      case 'English':
+        return 'en';
+      case 'Deutsch':
+        return 'de';
+      default:
+        return 'en';
+    }
+  }
+
+  void switchAppLanguage(String language) {
+    setState(ViewState.Busy);
+    _settingsService.changeSettingValue(
+        SettingKeys.locale, _convertLanguage(language));
+    setState(ViewState.Idle);
+  }
+
   void revertChanges() {
     _settingsService.revertChanges();
   }

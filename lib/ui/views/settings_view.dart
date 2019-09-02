@@ -60,6 +60,24 @@ class SettingsView extends StatelessWidget {
                 secondary: const Icon(Icons.lightbulb_outline),
               ),
               Divider(),
+              ListTile(
+                leading: const Icon(Icons.language),
+                title: Text('App Language'),
+                trailing: DropdownButton<String>(
+                  value: model.selectedLanguage,
+                  onChanged: (String newValue) {
+                    model.switchAppLanguage(newValue);
+                  },
+                  items: model.supportedLanguage
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Divider(),
             ],
           ),
         ),

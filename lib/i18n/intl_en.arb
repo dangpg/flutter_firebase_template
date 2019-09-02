@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "@@last_modified": "2019-09-02T18:13:37.691176",
+  "title": "Hello world App",
+  "@title": {
+    "description": "The application title",
+    "type": "text",
+    "placeholders": {}
+  }
+}
