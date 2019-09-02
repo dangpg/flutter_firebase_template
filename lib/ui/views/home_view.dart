@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/item.dart';
-import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/viewmodels/home_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 import 'package:flutter_firebase_template/ui/views/home_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
-import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomeView extends StatefulWidget {
@@ -70,6 +68,7 @@ class _HomeViewState extends State<HomeView> {
                               : Text(''),
                           currentAccountPicture: GestureDetector(
                             onTap: () {
+                              _scaffoldKey.currentState.removeCurrentSnackBar();
                               model.navigateToProfileView();
                             },
                             child: model.userData != null
@@ -92,7 +91,8 @@ class _HomeViewState extends State<HomeView> {
                                               fontSize: 25.0,
                                               fontWeight: FontWeight.bold,
                                             ),
-                                          ) : Container(),
+                                          )
+                                        : Container(),
                                   )
                                 : Container(),
                           ),
@@ -113,7 +113,10 @@ class _HomeViewState extends State<HomeView> {
                         ListTile(
                           leading: Icon(Icons.settings),
                           title: Text('Settings'),
-                          onTap: model.navigateToSettingsView,
+                          onTap: () {
+                            _scaffoldKey.currentState.removeCurrentSnackBar();
+                            model.navigateToSettingsView();
+                          },
                         ),
                         ListTile(
                           leading: Icon(Icons.exit_to_app),
@@ -170,6 +173,7 @@ class _HomeViewState extends State<HomeView> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           onTap: () {
+            _scaffoldKey.currentState.removeCurrentSnackBar();
             model.navigateToDetailView(item);
           },
         ),
