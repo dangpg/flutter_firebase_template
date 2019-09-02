@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/models/item.dart';
 import 'package:flutter_firebase_template/core/models/user.dart';
 import 'package:flutter_firebase_template/core/models/user_data.dart';

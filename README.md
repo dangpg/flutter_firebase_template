@@ -16,7 +16,7 @@ __Features:__
 * Unit testing
   * Mock service implementations powered by dependency injection
 * Settings system powered by shared preferences
-  * Internatalization
+  * Internationalization
   * Theming (light/dark theme)
 
 ## i18n
