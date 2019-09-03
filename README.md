@@ -2,24 +2,40 @@
 
 Ready to use project template for incorporating Firebase within a Flutter project.
 
-
 __Features:__
-* Authentication (FirebaseAuth)
-  * Login with Email and Password
-  * Logout
-* Registration
+* Architecture based on provider and dependency injection
+* FirebaseAuth
+    * Login/Logout
+    * Registration
 * Firestore
-  * CRUD operations
-* Firebase storage
-* Intact archictecture powered by Provider
+    * CRUD operations
+* Firebase Storage
+    * Avatar upload
 * Navigation system
-* Unit testing
-  * Mock service implementations powered by dependency injection
-* Settings system powered by shared preferences
+* Settings system
   * Internationalization
-  * Theming (light/dark theme)
+  * Theming
 
-## i18n
+## Screenshots
+
+Light theme |  Dark theme
+:-------------------------:|:-------------------------:
+![](screenshots/login.png)  |  ![](screenshots/login_dark.png)
+![](screenshots/home.png)  |  ![](screenshots/home_dark.png)
+![](screenshots/drawer.png)  |  ![](screenshots/drawer_dark.png)
+![](screenshots/detail.png)  |  ![](screenshots/detail_dark.png)
+![](screenshots/profile.png)  |  ![](screenshots/profile_dark.png)
+![](screenshots/settings.png)  |  ![](screenshots/settings_dark.png)
+![](screenshots/settings_german.png)  |  ![](screenshots/settings_german_dark.png)
+
+## Usage
+
+1. Create new Firebase project ([Firebase Console](https://console.firebase.google.com/))
+2. Add Android/iOS app to your Firebase project
+3. Follow instructions to integrate Firebase project to your Flutter project  (e.g. save google-services.json to `android/app`)
+4. Run `flutter pub get` and compile flutter project
+
+## I18n instructions
 
 Generate i18n.arb template file (based on Intl.messages in app_localizations.dart)
 `flutter pub run intl_translation:extract_to_arb --output-dir=lib/i18n lib/ui/app_localizations.dart`
@@ -27,19 +43,6 @@ Generate i18n.arb template file (based on Intl.messages in app_localizations.dar
 Generate messages.dart files (based on intl_*.arb files)
 `flutter pub run intl_translation:generate_from_arb --output-dir=lib/i18n --no-use-deferred-loading lib/ui/app_localizations.dart lib/i18n/intl_*.arb`
 
-## Getting Started
+## Acknoledgement
 
-1. Create new Firebase project ([Firebase Console](https://console.firebase.google.com/))
-2. Add Firebase to your Android/iOS app (Register app name. Found in `android/app/build.gradle`)
-3. Save google-services.json to `android/app`
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thank you to Dane Mackier for his [in-depth tutorial](https://www.filledstacks.com/post/flutter-architecture-my-provider-implementation-guide/) about constructiong a Flutter architecture using [provider](https://pub.dev/packages/provider) and [get_it](https://pub.dev/packages/get_it).
