@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/viewmodels/base_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/login_model.dart';
+import 'package:flutter_firebase_template/ui/app_localizations.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -37,14 +38,20 @@ class _LoginViewState extends State<LoginView> {
                     controller: _emailController,
                     autofocus: true,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: AppLocalizations.of(context).formEmailHintText,
                     ),
-                    validator: model.emailValidator,
+                    validator: (email) {
+                      if (!email.contains('@')) {
+                        return AppLocalizations.of(context).formEmailValidator;
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText:
+                          AppLocalizations.of(context).formPasswordHintText,
                     ),
                     obscureText: true,
                   ),
@@ -60,13 +67,14 @@ class _LoginViewState extends State<LoginView> {
                                       _passwordController.text);
                                 }
                               },
-                              child: Text('Login'),
+                              child: Text(AppLocalizations.of(context)
+                                  .loginLoginButton),
                             ),
                     ),
                   ),
                   GestureDetector(
                     child: Text(
-                      'Click to register',
+                      AppLocalizations.of(context).loginRegisterLink,
                       style: TextStyle(
                         color: Colors.red[200],
                         decoration: TextDecoration.underline,

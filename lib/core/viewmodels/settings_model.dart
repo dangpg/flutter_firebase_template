@@ -62,12 +62,12 @@ class SettingsModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future<void> saveSettings() async {
+  Future<void> saveSettings(String snackbarMessage) async {
     setState(ViewState.Busy);
     await _settingsService.saveSettingsToLocalStorage();
     setState(ViewState.Idle);
     _navigationService.returnToHomeView(
-      arguments: HomeViewArgs(snackbarMessage: 'Settings saved'),
+      arguments: HomeViewArgs(snackbarMessage: snackbarMessage),
     );
   }
 }

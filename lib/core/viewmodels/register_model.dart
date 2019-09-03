@@ -34,18 +34,4 @@ class RegisterModel extends BaseModel {
     }
     setState(ViewState.Idle);
   }
-
-  String emailValidator(String email) {
-    if (!email.contains('@')) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String confirmPasswordValidator(String password, String confirmPassword) {
-    if (password != confirmPassword) {
-      return 'Please make sure your passwords match';
-    }
-    return null;
-  }
 }

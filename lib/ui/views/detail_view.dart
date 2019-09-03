@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/viewmodels/detail_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
+import 'package:flutter_firebase_template/ui/app_localizations.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 import 'package:flutter_firebase_template/ui/views/detail_view_args.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
@@ -41,17 +42,17 @@ class _DetailViewState extends State<DetailView> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    content: Text('Unsaved changes will be lost'),
+                    content: Text(AppLocalizations.of(context).showdialogUnsavedChangesWarning),
                     actions: <Widget>[
                       FlatButton(
-                        child: const Text('CANCEL'),
+                        child: Text(AppLocalizations.of(context).showdialogCancel),
                         onPressed: () {
                           model.dismissAlert(false);
                         },
                       ),
                       FlatButton(
                         child: Text(
-                          'DISCARD',
+                          AppLocalizations.of(context).showdialogDiscard,
                           style: TextStyle(color: Colors.red),
                         ),
                         onPressed: () {
@@ -78,20 +79,20 @@ class _DetailViewState extends State<DetailView> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            content: Text('Delete Item?'),
+                            content: Text(AppLocalizations.of(context).detailDialogDeleteItemTitle),
                             actions: <Widget>[
                               FlatButton(
-                                  child: const Text('CANCEL'),
+                                  child: Text(AppLocalizations.of(context).showdialogCancel),
                                   onPressed: () {
                                     model.dismissAlert();
                                   }),
                               FlatButton(
                                 child: Text(
-                                  'DELETE',
+                                  AppLocalizations.of(context).detailDialogDeleteItemAction,
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () {
-                                  model.deleteItem();
+                                  model.deleteItem(AppLocalizations.of(context).detailItemDeleted);
                                 },
                               )
                             ],
@@ -102,7 +103,7 @@ class _DetailViewState extends State<DetailView> {
                 IconButton(
                   icon: Icon(Icons.save),
                   onPressed: model.pendingChanges ? () {
-                    model.updateItem();
+                    model.updateItem(AppLocalizations.of(context).detailItemUpdated);
                   } : null,
                 ),
               ],

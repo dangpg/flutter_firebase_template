@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/viewmodels/register_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
+import 'package:flutter_firebase_template/ui/app_localizations.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 
 class RegisterView extends StatefulWidget {
@@ -39,24 +40,36 @@ class _RegisterViewState extends State<RegisterView> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Email',
+                      hintText: AppLocalizations.of(context).formEmailHintText,
                     ),
-                    validator: model.emailValidator,
+                    validator: (email) {
+                      if (!email.contains('@')) {
+                        return AppLocalizations.of(context).formEmailValidator;
+                      }
+                      return null;
+                    },
                   ),
                   TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      hintText:
+                          AppLocalizations.of(context).formPasswordHintText,
                     ),
                     obscureText: true,
                   ),
                   TextFormField(
                     controller: _confirmPasswordController,
                     decoration: InputDecoration(
-                      hintText: 'Confirm Password',
+                      hintText: AppLocalizations.of(context)
+                          .formConfirmPasswordHintText,
                     ),
                     obscureText: true,
-                    validator: (confirmPassword) => model.confirmPasswordValidator(_passwordController.text, confirmPassword),
+                    validator: (confirmPassword) {
+                      if (_passwordController.text != confirmPassword) {
+                        return AppLocalizations.of(context).formConfirmPasswordValidator;
+                      }
+                      return null;
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -70,7 +83,8 @@ class _RegisterViewState extends State<RegisterView> {
                                       _passwordController.text);
                                 }
                               },
-                              child: Text('Register'),
+                              child: Text(AppLocalizations.of(context)
+                                  .registerRegisterButton),
                             ),
                     ),
                   ),

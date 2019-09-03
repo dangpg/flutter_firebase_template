@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_template/core/viewmodels/profile_model.dart';
 import 'package:flutter_firebase_template/core/viewmodels/view_state.dart';
+import 'package:flutter_firebase_template/ui/app_localizations.dart';
 import 'package:flutter_firebase_template/ui/views/base_view.dart';
 import 'package:flutter_firebase_template/ui/views/loading_view.dart';
 import 'package:flutter_firebase_template/ui/widgets/loading_overlay.dart';
@@ -45,17 +46,17 @@ class _ProfileViewState extends State<ProfileView> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          content: Text('Unsaved changes will be lost'),
+                          content: Text(AppLocalizations.of(context).showdialogUnsavedChangesWarning),
                           actions: <Widget>[
                             FlatButton(
-                              child: const Text('CANCEL'),
+                              child: Text(AppLocalizations.of(context).showdialogCancel),
                               onPressed: () {
                                 model.dismissAlert(false);
                               },
                             ),
                             FlatButton(
                               child: Text(
-                                'DISCARD',
+                                AppLocalizations.of(context).showdialogDiscard,
                                 style: TextStyle(color: Colors.red),
                               ),
                               onPressed: () {
@@ -72,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
                 children: <Widget>[
                   Scaffold(
                     appBar: AppBar(
-                      title: Text('Profile View'),
+                      title: Text(AppLocalizations.of(context).profileAppbarTitle),
                       actions: <Widget>[
                         IconButton(
                           icon: Icon(Icons.save),
@@ -82,7 +83,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   _usernameController.text,
                                   _firstnameController.text,
                                   _lastnameController.text);
-                              await model.saveProfile();
+                              await model.saveProfile(AppLocalizations.of(context).profileProfileUpdated);
                             }
                           },
                         ),
@@ -164,22 +165,22 @@ class _ProfileViewState extends State<ProfileView> {
                                       TextFormField(
                                         controller: _usernameController,
                                         decoration: InputDecoration(
-                                          labelText: 'Username (optional)',
-                                          hintText: 'Username',
+                                          labelText: AppLocalizations.of(context).formUsernameLabelText,
+                                          hintText: AppLocalizations.of(context).formUsernameHintText,
                                         ),
                                       ),
                                       TextFormField(
                                         controller: _firstnameController,
                                         decoration: InputDecoration(
-                                          labelText: 'First name (optional)',
-                                          hintText: 'First name',
+                                          labelText: AppLocalizations.of(context).formFirstnameLabelText,
+                                          hintText: AppLocalizations.of(context).formFirstnameHintText,
                                         ),
                                       ),
                                       TextFormField(
                                         controller: _lastnameController,
                                         decoration: InputDecoration(
-                                          labelText: 'Last name (optional)',
-                                          hintText: 'Last name',
+                                          labelText: AppLocalizations.of(context).formLastnameLabelText,
+                                          hintText: AppLocalizations.of(context).formLastnameHintText,
                                         ),
                                       ),
                                     ],

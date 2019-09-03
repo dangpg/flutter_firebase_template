@@ -35,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
                 content: Text(widget.homeViewArgs.snackbarMessage),
                 action: widget.homeViewArgs.deletedItem != null
                     ? SnackBarAction(
-                        label: 'UNDO',
+                        label: AppLocalizations.of(context).snackbarActionUndo,
                         onPressed: () {
                           model.undoDeleteItem(widget.homeViewArgs.deletedItem);
                         },
@@ -100,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         ListTile(
                           leading: Icon(Icons.fitness_center),
-                          title: Text('Item 1'),
+                          title: Text(AppLocalizations.of(context).homeDrawerItem1Title),
                           onTap: () {},
                         ),
                       ],
@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
                         Divider(),
                         ListTile(
                           leading: Icon(Icons.settings),
-                          title: Text('Settings'),
+                          title: Text(AppLocalizations.of(context).homeDrawerSettingsTitle),
                           onTap: () {
                             _scaffoldKey.currentState.removeCurrentSnackBar();
                             model.navigateToSettingsView();
@@ -121,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         ListTile(
                           leading: Icon(Icons.exit_to_app),
-                          title: Text('Logout'),
+                          title: Text(AppLocalizations.of(context).homeDrawerLogoutTitle),
                           onTap: model.logout,
                         ),
                         SizedBox(

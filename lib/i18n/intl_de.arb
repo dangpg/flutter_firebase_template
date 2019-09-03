@@ -1,9 +1,207 @@
 {
   "@@locale": "de",
-  "@@last_modified": "2019-09-02T18:13:37.691176",
-  "title": "Hallo Welt App",
+  "@@last_modified": "2019-09-03T12:29:07.238497",
+  "title": "Flutter Firebase Vorlage",
   "@title": {
     "description": "The application title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailItemDeleted": "Eintrag gelöscht",
+  "@detailItemDeleted": {
+    "description": "Snackbar message when item gets deleted",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailItemUpdated": "Eintrag aktualisiert",
+  "@detailItemUpdated": {
+    "description": "Snackbar message when item gets updated",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formEmailValidator": "Keine gültige Emailadresse",
+  "@formEmailValidator": {
+    "description": "Error message when email validation fails",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formNonEmptyValidator": "Darf nicht leer sein",
+  "@formNonEmptyValidator": {
+    "description": "Error message when field is empty",
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileProfileUpdated": "Profil aktualisiert",
+  "@profileProfileUpdated": {
+    "description": "Snackbar message when profile gets updated",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formConfirmPasswordValidator": "Passwörter müssen übereinstimmen",
+  "@formConfirmPasswordValidator": {
+    "description": "Error message when confirm password validation fails",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsSettingUpdated": "Einstellungen gespeichtert",
+  "@settingsSettingUpdated": {
+    "description": "Snackbar message when settings gets saved",
+    "type": "text",
+    "placeholders": {}
+  },
+  "showdialogUnsavedChangesWarning": "Nicht gespeichterte Änderungen gehen verloren",
+  "@showdialogUnsavedChangesWarning": {
+    "description": "Warning message when leaving without saving",
+    "type": "text",
+    "placeholders": {}
+  },
+  "showdialogCancel": "Zurück",
+  "@showdialogCancel": {
+    "description": "Cancel",
+    "type": "text",
+    "placeholders": {}
+  },
+  "showdialogDiscard": "Verwerfen",
+  "@showdialogDiscard": {
+    "description": "Discard",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailDialogDeleteItemTitle": "Eintrag löschen",
+  "@detailDialogDeleteItemTitle": {
+    "description": "Title of showDialog when deleting item",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailDialogDeleteItemAction": "Löschen",
+  "@detailDialogDeleteItemAction": {
+    "description": "Action text of showDialog when deleting item",
+    "type": "text",
+    "placeholders": {}
+  },
+  "snackbarActionUndo": "Rückgängig",
+  "@snackbarActionUndo": {
+    "description": "Action text of undo",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeAppbarTitle": "Zentrale",
+  "@homeAppbarTitle": {
+    "description": "Appbar title of homeview",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeDrawerItem1Title": "Eintrag 1",
+  "@homeDrawerItem1Title": {
+    "description": "Title of dummy list tile item",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeDrawerSettingsTitle": "Einstellungen",
+  "@homeDrawerSettingsTitle": {
+    "description": "Title of settings list tile item",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homeDrawerLogoutTitle": "Abmelden",
+  "@homeDrawerLogoutTitle": {
+    "description": "Title of logout list tile item",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formEmailHintText": "Emailadresse",
+  "@formEmailHintText": {
+    "description": "Form hint text for email field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formPasswordHintText": "Passwort",
+  "@formPasswordHintText": {
+    "description": "Form hint text for password field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginLoginButton": "Anmelden",
+  "@loginLoginButton": {
+    "description": "Button text for login button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginRegisterLink": "Klicken zum registrieren",
+  "@loginRegisterLink": {
+    "description": "Link text for register form",
+    "type": "text",
+    "placeholders": {}
+  },
+  "profileAppbarTitle": "Profil",
+  "@profileAppbarTitle": {
+    "description": "Appbar title of profile view",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formUsernameHintText": "Benutzername",
+  "@formUsernameHintText": {
+    "description": "Form hint text for username field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formUsernameLabelText": "Benutzername (optional)",
+  "@formUsernameLabelText": {
+    "description": "Form label text for username field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formFirstnameHintText": "Vorname",
+  "@formFirstnameHintText": {
+    "description": "Form hint text for first name field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formFirstnameLabelText": "Vorname (optional)",
+  "@formFirstnameLabelText": {
+    "description": "Form label text for first name field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formLastnameHintText": "Nachname",
+  "@formLastnameHintText": {
+    "description": "Form hint text for last name field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formLastnameLabelText": "Nachname (optional)",
+  "@formLastnameLabelText": {
+    "description": "Form label text for last name field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "formConfirmPasswordHintText": "Password wiederholen",
+  "@formConfirmPasswordHintText": {
+    "description": "Form hint text for confirm password field",
+    "type": "text",
+    "placeholders": {}
+  },
+  "registerRegisterButton": "Registrieren",
+  "@registerRegisterButton": {
+    "description": "Button text for register button",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsAppbarTitle": "Einstellungen",
+  "@settingsAppbarTitle": {
+    "description": "Appbar title of settings view",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsListTileThemeTitle": "Nachtmodus aktivieren",
+  "@settingsListTileThemeTitle": {
+    "description": "Title of list tile for changing theme",
+    "type": "text",
+    "placeholders": {}
+  },
+  "settingsListTileLanguageTitle": "Sprache",
+  "@settingsListTileLanguageTitle": {
+    "description": "Title of list tile for changing language",
     "type": "text",
     "placeholders": {}
   }

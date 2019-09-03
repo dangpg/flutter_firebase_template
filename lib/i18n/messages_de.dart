@@ -21,6 +21,39 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "title" : MessageLookupByLibrary.simpleMessage("Hallo Welt App")
+    "detailDialogDeleteItemAction" : MessageLookupByLibrary.simpleMessage("Löschen"),
+    "detailDialogDeleteItemTitle" : MessageLookupByLibrary.simpleMessage("Eintrag löschen"),
+    "detailItemDeleted" : MessageLookupByLibrary.simpleMessage("Eintrag gelöscht"),
+    "detailItemUpdated" : MessageLookupByLibrary.simpleMessage("Eintrag aktualisiert"),
+    "formConfirmPasswordHintText" : MessageLookupByLibrary.simpleMessage("Password wiederholen"),
+    "formConfirmPasswordValidator" : MessageLookupByLibrary.simpleMessage("Passwörter müssen übereinstimmen"),
+    "formEmailHintText" : MessageLookupByLibrary.simpleMessage("Emailadresse"),
+    "formEmailValidator" : MessageLookupByLibrary.simpleMessage("Keine gültige Emailadresse"),
+    "formFirstnameHintText" : MessageLookupByLibrary.simpleMessage("Vorname"),
+    "formFirstnameLabelText" : MessageLookupByLibrary.simpleMessage("Vorname (optional)"),
+    "formLastnameHintText" : MessageLookupByLibrary.simpleMessage("Nachname"),
+    "formLastnameLabelText" : MessageLookupByLibrary.simpleMessage("Nachname (optional)"),
+    "formNonEmptyValidator" : MessageLookupByLibrary.simpleMessage("Darf nicht leer sein"),
+    "formPasswordHintText" : MessageLookupByLibrary.simpleMessage("Passwort"),
+    "formUsernameHintText" : MessageLookupByLibrary.simpleMessage("Benutzername"),
+    "formUsernameLabelText" : MessageLookupByLibrary.simpleMessage("Benutzername (optional)"),
+    "homeAppbarTitle" : MessageLookupByLibrary.simpleMessage("Zentrale"),
+    "homeDrawerItem1Title" : MessageLookupByLibrary.simpleMessage("Eintrag 1"),
+    "homeDrawerLogoutTitle" : MessageLookupByLibrary.simpleMessage("Abmelden"),
+    "homeDrawerSettingsTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
+    "loginLoginButton" : MessageLookupByLibrary.simpleMessage("Anmelden"),
+    "loginRegisterLink" : MessageLookupByLibrary.simpleMessage("Klicken zum registrieren"),
+    "profileAppbarTitle" : MessageLookupByLibrary.simpleMessage("Profil"),
+    "profileProfileUpdated" : MessageLookupByLibrary.simpleMessage("Profil aktualisiert"),
+    "registerRegisterButton" : MessageLookupByLibrary.simpleMessage("Registrieren"),
+    "settingsAppbarTitle" : MessageLookupByLibrary.simpleMessage("Einstellungen"),
+    "settingsListTileLanguageTitle" : MessageLookupByLibrary.simpleMessage("Sprache"),
+    "settingsListTileThemeTitle" : MessageLookupByLibrary.simpleMessage("Nachtmodus aktivieren"),
+    "settingsSettingUpdated" : MessageLookupByLibrary.simpleMessage("Einstellungen gespeichtert"),
+    "showdialogCancel" : MessageLookupByLibrary.simpleMessage("Zurück"),
+    "showdialogDiscard" : MessageLookupByLibrary.simpleMessage("Verwerfen"),
+    "showdialogUnsavedChangesWarning" : MessageLookupByLibrary.simpleMessage("Nicht gespeichterte Änderungen gehen verloren"),
+    "snackbarActionUndo" : MessageLookupByLibrary.simpleMessage("Rückgängig"),
+    "title" : MessageLookupByLibrary.simpleMessage("Flutter Firebase Vorlage")
   };
 }

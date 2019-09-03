@@ -30,14 +30,14 @@ class DetailModel extends BaseModel {
     _navigationService.pop();
   }
 
-  Future<void> deleteItem() async {
+  Future<void> deleteItem(String snackbarMessage) async {
     dismissAlert();
     setState(ViewState.Busy);
     await _dbService.deleteItem(item.id);
     setState(ViewState.Idle);
     _navigationService.returnToHomeView(
       arguments:
-          HomeViewArgs(snackbarMessage: 'Item deleted', deletedItem: item),
+          HomeViewArgs(snackbarMessage: snackbarMessage, deletedItem: item),
     );
   }
 
@@ -55,12 +55,12 @@ class DetailModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  void updateItem() async {
+  void updateItem(String snackbarMessage) async {
     setState(ViewState.Busy);
     await _dbService.updateItem(item);
     pendingChanges = false;
     setState(ViewState.Idle);
-    _snackbarController.add('Item updated');
+    _snackbarController.add(snackbarMessage);
   }
 
   void dispose() {

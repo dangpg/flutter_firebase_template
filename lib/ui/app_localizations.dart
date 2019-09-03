@@ -66,6 +66,10 @@ class AppLocalizations {
       name: 'detailDialogDeleteItemTitle',
       desc: 'Title of showDialog when deleting item');
 
+  String get detailDialogDeleteItemAction => Intl.message('Delete',
+      name: 'detailDialogDeleteItemAction',
+      desc: 'Action text of showDialog when deleting item');
+
   String get snackbarActionUndo => Intl.message('Undo',
       name: 'snackbarActionUndo', desc: 'Action text of undo');
 
@@ -81,6 +85,54 @@ class AppLocalizations {
 
   String get homeDrawerLogoutTitle => Intl.message('Logout',
       name: 'homeDrawerLogoutTitle', desc: 'Title of logout list tile item');
+
+  String get formEmailHintText => Intl.message('Email',
+      name: 'formEmailHintText', desc: 'Form hint text for email field');
+
+  String get formPasswordHintText => Intl.message('Password',
+      name: 'formPasswordHintText', desc: 'Form hint text for password field');
+
+  String get loginLoginButton => Intl.message('Login',
+      name: 'loginLoginButton', desc: 'Button text for login button');
+
+  String get loginRegisterLink => Intl.message('Click to register',
+      name: 'loginRegisterLink', desc: 'Link text for register form');
+
+  String get profileAppbarTitle => Intl.message('Profile',
+      name: 'profileAppbarTitle', desc: 'Appbar title of profile view');
+
+  String get formUsernameHintText => Intl.message('Username',
+      name: 'formUsernameHintText', desc: 'Form hint text for username field');
+      
+  String get formUsernameLabelText => Intl.message('Username (optional)',
+      name: 'formUsernameLabelText', desc: 'Form label text for username field');
+      
+  String get formFirstnameHintText => Intl.message('First name',
+      name: 'formFirstnameHintText', desc: 'Form hint text for first name field');
+
+  String get formFirstnameLabelText => Intl.message('First name (optional)',
+      name: 'formFirstnameLabelText', desc: 'Form label text for first name field');
+      
+  String get formLastnameHintText => Intl.message('Last name',
+      name: 'formLastnameHintText', desc: 'Form hint text for last name field');
+      
+  String get formLastnameLabelText => Intl.message('Last name (optional)',
+      name: 'formLastnameLabelText', desc: 'Form label text for last name field');
+
+  String get formConfirmPasswordHintText => Intl.message('Confirm Password',
+      name: 'formConfirmPasswordHintText', desc: 'Form hint text for confirm password field');
+      
+  String get registerRegisterButton => Intl.message('Register',
+      name: 'registerRegisterButton', desc: 'Button text for register button');
+
+  String get settingsAppbarTitle => Intl.message('Settings',
+      name: 'settingsAppbarTitle', desc: 'Appbar title of settings view');
+      
+  String get settingsListTileThemeTitle => Intl.message('Use Dark Theme',
+      name: 'settingsListTileThemeTitle', desc: 'Title of list tile for changing theme');
+
+  String get settingsListTileLanguageTitle => Intl.message('App Language',
+      name: 'settingsListTileLanguageTitle', desc: 'Title of list tile for changing language');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

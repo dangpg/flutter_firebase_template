@@ -35,11 +35,4 @@ class LoginModel extends BaseModel {
   void navigateToRegisterView() {
     _navigationService.navigateTo(Router.register);
   }
-  
-  String emailValidator(String email) {
-    if (!email.contains('@')) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
 }

@@ -40,7 +40,7 @@ class ProfileModel extends BaseModel {
       ..lastname = lastname;
   }
 
-  Future<void> saveProfile() async {
+  Future<void> saveProfile(String snackbarMessage) async {
     setState(ViewState.Busy);
     if (imageFile != null) {
       String url = await _storageService.uploadAvatarFileImage(_userData.id, imageFile);
@@ -49,7 +49,7 @@ class ProfileModel extends BaseModel {
     await _dbService.updateUserData(userData);
     setState(ViewState.Idle);
     _navigationService.returnToHomeView(
-      arguments: HomeViewArgs(snackbarMessage: 'Profile updated'),
+      arguments: HomeViewArgs(snackbarMessage: snackbarMessage),
     );
   }
 
@@ -57,7 +57,4 @@ class ProfileModel extends BaseModel {
     imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(ViewState.Idle);
   }
-
-  String nonEmptyValidator(String value) =>
-      value.isEmpty ? 'Cannot be empty' : null;
 }
